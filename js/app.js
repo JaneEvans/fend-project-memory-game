@@ -1,7 +1,10 @@
 /*
  * Create a list that holds all of your cards
  */
-
+const cardList = []
+for(let i=1;i<=16;i++){
+    cardList.push('#c'+i);
+}
 
 /*
  * Display the cards on the page
@@ -24,6 +27,21 @@ function shuffle(array) {
 
     return array;
 }
+
+// display all of the cards on the page when clicked "restart" button
+$('.restart').click(function(){
+    $('.card').removeClass('open show match');
+    $('.card').addClass('open show');
+});
+
+
+
+
+
+
+
+
+
 
 
 /*
