@@ -44,24 +44,31 @@ function shuffleCards(){
 
 // Click card function
 function clickCard(){
-    let openCards=[];
+    let openedCard, clickedCard;
 
     $('.card').on('click',function(){
-        $(this).addClass('open show');
-        let cardContext = $(this).children('i').attr('class').split(' ')[1];
+        clickedCard = $(this).addClass('open show');
+        // clickedCard = $(this).children('i').attr('class').split(' ')[1];
 
-        if(openCards.length === 0){
-            openCards.push(cardContext);
+        if(!openedCard){
+            openedCard=clickedCard;
         }
-        else{
-            if(openCards.includes(cardContext)){
-                $(this).removeClass('open show').addClass('match');
+        else if((openedCard.attr('id')!==clickedCard.attr('id'))){
+            if(openedCard.children('i').attr('class') === clickedCard.children('i').attr('class')){
+                openedCard.removeClass('open show').addClass('match');
+                clickedCard.removeClass('open show').addClass('match');
             }
             else{
-                openCards.pop(cardContext);
+                
+                setTimeout(function(){
+                    clickedCard.removeClass('open show');
+                    openedCard.removeClass('open show');
+                },500);
             }
+            openedCard='';
         }
-        console.log(openCards, cardContext);
+
+
     });
 }
 
@@ -74,10 +81,11 @@ function initializeDeck(){
     // after 1s close all cards
     setTimeout(function(){
         $('.card').removeClass('open show match');
+        clickCard();
     },1000);
 
     //add event listener on each card: when clicked, open the card
-    clickCard();
+    
 }
 
 
