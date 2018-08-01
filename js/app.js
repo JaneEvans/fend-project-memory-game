@@ -1,10 +1,11 @@
 /*
  * Create a list that holds all of your cards
  */
-const cardList = []
-for(let i=1;i<=16;i++){
-    cardList.push('#c'+i);
-}
+// const cardIDList = []
+// for(let i=1;i<=16;i++){
+//     cardList.push('c'+i);
+// }
+const cardList = $('.deck li');
 
 /*
  * Display the cards on the page
@@ -28,14 +29,24 @@ function shuffle(array) {
     return array;
 }
 
+//Shuffle cards
+function shuffleCards(){
+    let newCardList = shuffle(cardList);
+    $('.deck').empty().append(newCardList);
+} 
+
+
 // display all of the cards on the page when clicked "restart" button
+// after 1s close all cards
 $('.restart').click(function(){
     $('.card').removeClass('open show match');
+    shuffleCards();
     $('.card').addClass('open show');
     setTimeout(function(){
         $('.card').removeClass('open show match');
     },1000);
 });
+
 
 
 
