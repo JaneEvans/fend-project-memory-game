@@ -32,6 +32,9 @@ function shuffle(array) {
 $('.restart').click(function(){
     $('.card').removeClass('open show match');
     $('.card').addClass('open show');
+    setTimeout(function(){
+        $('.card').removeClass('open show match');
+    },1000);
 });
 
 
