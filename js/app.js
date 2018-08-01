@@ -1,11 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-// const cardIDList = []
-// for(let i=1;i<=16;i++){
-//     cardList.push('c'+i);
-// }
-const cardList = $('.deck li');
+let cardList = $('.card');
 
 /*
  * Display the cards on the page
@@ -16,7 +12,7 @@ const cardList = $('.deck li');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -29,34 +25,11 @@ function shuffle(array) {
     return array;
 }
 
-//Shuffle cards
+// Shuffle cards function
 function shuffleCards(){
-    let newCardList = shuffle(cardList);
-    $('.deck').empty().append(newCardList);
-} 
-
-
-// display all of the cards on the page when clicked "restart" button
-// after 1s close all cards
-$('.restart').click(function(){
-    $('.card').removeClass('open show match');
-    shuffleCards();
-    $('.card').addClass('open show');
-    setTimeout(function(){
-        $('.card').removeClass('open show match');
-    },1000);
-});
-
-
-
-
-
-
-
-
-
-
-
+    cardList = shuffle(cardList);
+    $('.deck').empty().append(cardList);
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -68,3 +41,52 @@ $('.restart').click(function(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+// Click card function
+function clickCard(){
+    let openCards=[];
+
+    $('.card').on('click',function(){
+        $(this).addClass('open show');
+        let cardContext = $(this).children('i').attr('class').split(' ')[1];
+
+        if(openCards.length === 0){
+            openCards.push(cardContext);
+        }
+        else{
+            if(openCards.includes(cardContext)){
+                $(this).removeClass('open show').addClass('match');
+            }
+            else{
+                openCards.pop(cardContext);
+            }
+        }
+        console.log(openCards, cardContext);
+    });
+}
+
+
+// Initialize card deck function
+function initializeDeck(){
+    // display all of the cards on the page
+    $('.card').addClass('open show');
+
+    // after 1s close all cards
+    setTimeout(function(){
+        $('.card').removeClass('open show match');
+    },1000);
+
+    //add event listener on each card: when clicked, open the card
+    clickCard();
+}
+
+
+$(function() {
+    shuffleCards();
+    initializeDeck();
+});
+
+$('.restart').on('click', function(){   
+    shuffleCards();
+    initializeDeck();
+});
