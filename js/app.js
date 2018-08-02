@@ -71,9 +71,22 @@ function clickCard(){
             
         }
 
-        let starList = $('.stars').children('li');
+        let moves = $('.stars').children('li').length;
+        let star1 = $('.stars').children('li').first();
+        let star2 = star1.next();
 
-        console.log(starList);
+        if(numClick > 4){
+            star1.hide();
+            moves -=1;
+        } 
+        
+        if (numClick > 12){
+            star2.hide();
+            moves -=1;
+        }        
+        
+        $('.moves').text(moves);
+
     });
 
     
@@ -84,6 +97,7 @@ function clickCard(){
 function initializeDeck(){
     // display all of the cards on the page
     $('.card').addClass('open show');
+    $('.stars').children('li').show();
 
     // after 1s close all cards
     setTimeout(function(){
