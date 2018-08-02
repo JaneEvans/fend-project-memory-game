@@ -44,12 +44,12 @@ function shuffleCards(){
 
 // Click card function
 function clickCard(){
-    let openedCard, clickedCard;
+    let openedCard, clickedCard, numClick=0;
 
     $('.card').on('click',function(){
+        numClick+=1;
         clickedCard = $(this).addClass('open show');
-        // clickedCard = $(this).children('i').attr('class').split(' ')[1];
-
+        
         if(!openedCard){
             openedCard=clickedCard;
         }
@@ -57,19 +57,26 @@ function clickCard(){
             if(openedCard.children('i').attr('class') === clickedCard.children('i').attr('class')){
                 openedCard.removeClass('open show').addClass('match');
                 clickedCard.removeClass('open show').addClass('match');
+                numClick-=2;
+                openedCard='';
             }
             else{
                 
                 setTimeout(function(){
-                    clickedCard.removeClass('open show');
                     openedCard.removeClass('open show');
+                    clickedCard.removeClass('open show');
+                    openedCard='';                    
                 },500);
             }
-            openedCard='';
+            
         }
 
+        let starList = $('.stars').children('li');
 
+        console.log(starList);
     });
+
+    
 }
 
 
