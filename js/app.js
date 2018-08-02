@@ -47,13 +47,15 @@ function clickCard(){
     let openedCard, clickedCard, numClick=0;
 
     $('.card').on('click',function(){
-        numClick+=1;
+        
         clickedCard = $(this).addClass('open show');
         
         if(!openedCard){
+            numClick+=1;
             openedCard=clickedCard;
         }
         else if((openedCard.attr('id')!==clickedCard.attr('id'))){
+            numClick+=1;
             if(openedCard.children('i').attr('class') === clickedCard.children('i').attr('class')){
                 openedCard.removeClass('open show').addClass('match');
                 clickedCard.removeClass('open show').addClass('match');
@@ -70,8 +72,8 @@ function clickCard(){
             }
             
         }
-
-        let moves = $('.stars').children('li').length;
+        console.log(numClick);
+        let moves = 3;
         let star1 = $('.stars').children('li').first();
         let star2 = star1.next();
 
@@ -98,7 +100,7 @@ function initializeDeck(){
     // display all of the cards on the page
     $('.card').addClass('open show');
     $('.stars').children('li').show();
-
+    $('.moves').text(3);
     // after 1s close all cards
     setTimeout(function(){
         $('.card').removeClass('open show match');
