@@ -44,7 +44,7 @@ function shuffleCards(){
 
 // Click card function
 function clickCard(){
-    let openedCard, clickedCard, numMove=0;
+    let openedCard, clickedCard, numMove=0, matchedCards=0;
 
     $('.card').on('click',function(){
         
@@ -54,8 +54,11 @@ function clickCard(){
             openedCard=clickedCard;
         }
         else if((openedCard.attr('id')!==clickedCard.attr('id'))){
+            
             numMove+=1;
+
             if(openedCard.children('i').attr('class') === clickedCard.children('i').attr('class')){
+                matchedCards+=1;
                 openedCard.removeClass('open show').addClass('match');
                 clickedCard.removeClass('open show').addClass('match');
                 openedCard='';
@@ -70,8 +73,7 @@ function clickCard(){
             }
             
         }
-        console.log(numMove);
-        let moves = $('.stars').children('li').length;
+        console.log(matchedCards);
         let star1 = $('.stars').children('li').first();
         // let star2 = star1.next();
 
