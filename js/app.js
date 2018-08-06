@@ -44,22 +44,20 @@ function shuffleCards(){
 
 // Click card function
 function clickCard(){
-    let openedCard, clickedCard, numClick=0;
+    let openedCard, clickedCard, numMove=0;
 
     $('.card').on('click',function(){
         
         clickedCard = $(this).addClass('open show');
         
         if(!openedCard){
-            numClick+=1;
             openedCard=clickedCard;
         }
         else if((openedCard.attr('id')!==clickedCard.attr('id'))){
-            numClick+=1;
+            numMove+=1;
             if(openedCard.children('i').attr('class') === clickedCard.children('i').attr('class')){
                 openedCard.removeClass('open show').addClass('match');
                 clickedCard.removeClass('open show').addClass('match');
-                numClick-=2;
                 openedCard='';
             }
             else{
@@ -72,22 +70,28 @@ function clickCard(){
             }
             
         }
-        console.log(numClick);
-        let moves = 3;
+        console.log(numMove);
+        let moves = $('.stars').children('li').length;
         let star1 = $('.stars').children('li').first();
-        let star2 = star1.next();
+        // let star2 = star1.next();
 
-        if(numClick > 4){
-            star1.hide();
-            moves -=1;
-        } 
+            // if((numClick % 4 === 0) && (moves)){
+            //     star1.next().hide();
+            //     moves -=1;
+            // }
         
-        if (numClick > 12){
-            star2.hide();
-            moves -=1;
-        }        
         
-        $('.moves').text(moves);
+        // if(numClick > 4){
+        //     star1.hide();
+        //     moves -=1;
+        // } 
+        
+        // if (numClick > 12){
+        //     star2.hide();
+        //     moves -=1;
+        // }        
+        
+        $('.moves').text(numMove);
 
     });
 
@@ -100,7 +104,7 @@ function initializeDeck(){
     // display all of the cards on the page
     $('.card').addClass('open show');
     $('.stars').children('li').show();
-    $('.moves').text(3);
+    $('.moves').text(0);
     // after 1s close all cards
     setTimeout(function(){
         $('.card').removeClass('open show match');
