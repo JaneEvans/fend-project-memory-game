@@ -59,39 +59,32 @@ function clickCard(){
 
             if(openedCard.children('i').attr('class') === clickedCard.children('i').attr('class')){
                 matchedCards+=1;
-                openedCard.removeClass('open show').addClass('match');
-                clickedCard.removeClass('open show').addClass('match');
-                openedCard='';
+                openedCard.switchClass('open show','match');
+                clickedCard.switchClass('open show','match');
             }
             else{
-                
-                setTimeout(function(){
-                    openedCard.removeClass('open show');
-                    clickedCard.removeClass('open show');
-                    openedCard='';                    
-                },500);
+                openedCard.switchClass('open show','',800);
+                clickedCard.switchClass('open show','',800);
             }
             
+            openedCard='';
         }
-        console.log(matchedCards);
-        let star1 = $('.stars').children('li').first();
-        // let star2 = star1.next();
-
-            // if((numClick % 4 === 0) && (moves)){
-            //     star1.next().hide();
-            //     moves -=1;
-            // }
         
+        let star1 = $('.stars li').children('i').last();
+        let star2 = star1.prev();
+        let star3 = star2.prev();
+        console.log(star1);
+        if(numMove > 8){
+            star1.switchClass('fa-star','fa-star-o');
+        } 
         
-        // if(numClick > 4){
-        //     star1.hide();
-        //     moves -=1;
-        // } 
+        if (matchedCards > 16){
+            star2.switchClass('fa-star','fa-star-o',0);
+        }
         
-        // if (numClick > 12){
-        //     star2.hide();
-        //     moves -=1;
-        // }        
+        if (matchedCards > 32){
+            star3.switchClass('fa-star','fa-star-o',0);
+        }        
         
         $('.moves').text(numMove);
 
@@ -104,8 +97,8 @@ function clickCard(){
 // Initialize card deck function
 function initializeDeck(){
     // display all of the cards on the page
-    $('.card').addClass('open show');
-    $('.stars').children('li').show();
+    $('.card').switchClass('match','open show');
+    star1 = $('.stars li').children('i').switchClass('fa-star-o','fa-star',0);
     $('.moves').text(0);
     // after 1s close all cards
     setTimeout(function(){
