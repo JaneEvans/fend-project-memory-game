@@ -73,9 +73,9 @@ function clickCard(){
         let star1 = $('.stars li').children('i').last();
         let star2 = star1.prev();
         let star3 = star2.prev();
-        console.log(star1);
+
         if(numMove > 8){
-            star1.switchClass('fa-star','fa-star-o');
+            star1.switchClass('fa-star','fa-star-o',0);
         } 
         
         if (matchedCards > 16){
